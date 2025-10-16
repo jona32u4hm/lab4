@@ -1,7 +1,7 @@
 // ejercicio1.c Jonatán Hidalgo Morales C4G083
 //
 #include <stdio.h>
-#define SIZE 4
+#define SIZE 5
 
 
 int matrix[SIZE][SIZE] = {
@@ -11,33 +11,36 @@ int matrix[SIZE][SIZE] = {
 	{93,87,78,77, 3},
 	{ 0,20,55,69, 5}
 };
-void printMatrix(int matrix[SIZE][SIZE]) { //imprime una matriz
-        for(int y = 0; y < SIZE; y++){
-		for(int x = 0; x < SIZE; x++){
-			printf("%d  ",matrix[x][y]); //imprimir posición
+void printMatrix(int *matrix) { //imprime una matriz
+		for(int i = 0; i < SIZE*SIZE; i++){
+			printf("%d  ",*()matrix+i)); //imprimir posición
+            if (i%SIZE == 5) printf("\n");//siguiente fila!
 		}
-		printf("\n");//siguiente fila!
 	}
 }
 
 void bubbleSort(int *array){
-    do{
-        int notSorted = 0;
+    while(1){
+        int sorted = 1;
         for (int i = 0; i < SIZE*SIZE - 1; i++){
             if ( *(array + i) > *(array + i + 1) ){
                 int swapHolder = *(array+i);
                 *(array+i) = *(array + i + 1);
                 *(array + i + 1) = swapHolder;
-                notSorted = 1;
+                sorted = 0;
             }
         }        
-    }while(notSorted)
+        if(sorted) return;
+    }
 }
 
 
-int *mptr = &matrix;
+int *mptr = &matrix[0][0];
 
 int main(){
+
+    printf("la matriz es:");
+    printMatrix(matrix);
 
     //convertir a un array:
 	int array[SIZE*SIZE] = {};
@@ -47,9 +50,14 @@ int main(){
 
     bubbleSort(array);
 
+    for ( int i = 0; i < SIZE*SIZE; i++){
+		printf("%d\n", array[i]); 
+        *(mptr+i) = array[i];
+	}
     
-
-
+    printf("matriz ordenada:");
+    printMatrix(matrix);
+    return 0;
 
 }
 
