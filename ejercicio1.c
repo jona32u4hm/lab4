@@ -9,27 +9,33 @@ int matrix[SIZE][SIZE] = {
 	{23,43,65, 3,98},
 	{49,11,27,26, 9},
 	{93,87,78,77, 3},
-	{ 0,20,55,69, 5}
+	{ 5,20,55,69, 0}
 };
 void printMatrix(int *matrix) { //imprime una matriz
 		for(int i = 0; i < SIZE*SIZE; i++){
-			printf("%d  ",*()matrix+i)); //imprimir posición
-            if (i%SIZE == 5) printf("\n");//siguiente fila!
+			printf("%d  ",*(matrix+i)); //imprimir posición
+            if ((i+1)%SIZE == 0) printf("\n");//siguiente fila!
 		}
-	}
 }
 
 void bubbleSort(int *array){
-    while(1){
-        int sorted = 1;
-        for (int i = 0; i < SIZE*SIZE - 1; i++){
+    
+    int faltantes = SIZE*SIZE - 1; //es la cantidad de elementos por los que hace falta pasar en el loop a continuación
+
+    while(1){ //loop infinito (roto por el return una vez cmpleta la tarea)
+        int sorted = 1;// se va a cambiar a cero si se demuestra que todavía no estaba ordenada la matriz
+        for (int i = 0; i < faltantes; i++){//esto pasa por todos los elementos necesarios y si encuentra un par que están mal, los intercambia
             if ( *(array + i) > *(array + i + 1) ){
                 int swapHolder = *(array+i);
                 *(array+i) = *(array + i + 1);
                 *(array + i + 1) = swapHolder;
-                sorted = 0;
+                sorted = 0; //todavía no estaba ordenada
             }
-        }        
+
+        }       
+//algo muy loco es que después de darle una pasada, el algoritmo se lleva un elemento hacia un extremo y lo coloca en su lugar
+
+        faltantes--;//entonces no hace falta revisar todos la próxima vez :> 
         if(sorted) return;
     }
 }
@@ -40,7 +46,7 @@ int *mptr = &matrix[0][0];
 int main(){
 
     printf("la matriz es:");
-    printMatrix(matrix);
+    printMatrix(mptr);
 
     //convertir a un array:
 	int array[SIZE*SIZE] = {};
@@ -51,12 +57,11 @@ int main(){
     bubbleSort(array);
 
     for ( int i = 0; i < SIZE*SIZE; i++){
-		printf("%d\n", array[i]); 
         *(mptr+i) = array[i];
 	}
     
     printf("matriz ordenada:");
-    printMatrix(matrix);
+    printMatrix(mptr);
     return 0;
 
 }
