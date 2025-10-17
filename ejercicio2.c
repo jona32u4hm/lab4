@@ -14,7 +14,6 @@ char *fgetw(FILE *file){// file get word :D
     if (character == EOF) {
         return NULL; 
     }
-
     char *word = (char *)malloc(size*sizeof(char));
 
 
@@ -40,15 +39,28 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
     FILE *file;
-    file = fopen(argv[1], "r+");
+    file = fopen(argv[1], "r");
+    FILE *destiny;
+    destiny = fopen("./output.txt", "w");
     if (file == NULL) {
         perror("Error opening file");
         return 1;
     }
 
     
+    while (1){
+        char *word = fgetw(file); 
+        if (word == NULL){
+                 free(word);
+                 fclose(file);
+                 return 0;     
+        } 
+        if (!strcmp(word, argv[2])){
+             strcpy(word, argv[3]);       
+        }
+        fprintf(destiny, "%s", word);
+        free(word);
+    }
     
-    
-    fclose(file);
-    return 0;
+
 }
