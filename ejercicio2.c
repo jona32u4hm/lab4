@@ -59,6 +59,7 @@ int main(int argc, char *argv[]){
              strcpy(word, argv[3]);       
         }
         fprintf(destiny, "%s", word);
+	fprintf(destiny, " ");
         free(word);
     }
     
