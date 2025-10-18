@@ -1,26 +1,28 @@
 // ejercicio1.c Jonatán Hidalgo Morales C4G083
 //
 #include <stdio.h>
-#define SIZE 5
+#define SIZEi 3
+#define SIZEj 4
 
 
-int matrix[SIZE][SIZE] = {
-	{23,45,12, 8,80},
-	{23,43,65, 3,98},
-	{49,11,27,26, 9},
-	{93,87,78,77, 3},
-	{ 5,20,55,69, 0}
+int matrix[SIZEj][SIZEi] = {
+	{ 0, 3,27},
+	{88,68,34},
+	{ 3, 1,29},
+	{78,77,34}
+
 };
 void printMatrix(int *matrix) { //imprime una matriz
-		for(int i = 0; i < SIZE*SIZE; i++){
+		printf("\n");
+		for(int i = 0; i < SIZEj*SIZEi; i++){
 			printf("%d  ",*(matrix+i)); //imprimir posición
-            if ((i+1)%SIZE == 0) printf("\n");//siguiente fila!
+            		if ((i+1)%SIZEi == 0) printf("\n");//siguiente fila!
 		}
 }
 
 void bubbleSort(int *array){
     
-    int faltantes = SIZE*SIZE - 1; //es la cantidad de elementos por los que hace falta pasar en el loop a continuación
+    int faltantes = SIZEj*SIZEi - 1; //es la cantidad de elementos por los que hace falta pasar en el loop a continuación
 
     while(1){ //loop infinito (roto por el return una vez cmpleta la tarea)
         int sorted = 1;// se va a cambiar a cero si se demuestra que todavía no estaba ordenada la matriz
@@ -49,14 +51,14 @@ int main(){
     printMatrix(mptr);
 
     //convertir a un array:
-	int array[SIZE*SIZE] = {};
-	for ( int i = 0; i < SIZE*SIZE; i++){
+	int array[SIZEj*SIZEi] = {};
+	for ( int i = 0; i < SIZEj*SIZEi; i++){
 		array[i] = *(mptr+i);
 	}
 
     bubbleSort(array);
 
-    for ( int i = 0; i < SIZE*SIZE; i++){
+    for ( int i = 0; i < SIZEj*SIZEi; i++){
         *(mptr+i) = array[i];
 	}
     
